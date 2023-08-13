@@ -2,69 +2,56 @@ package com.example.ProjetoSpring.entities;
 
 import java.util.Objects;
 
-import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_belonging")
 public class Belonging {
-	
-		@Embedded
-		private BelongingPk id = new BelongingPk();
-		
-		private Integer position;
 
-	
-public Belonging() {
-	
-}
+	@EmbeddedId
+	private BelongingPK id = new BelongingPK();
 
+	private Integer position;
 
-public Belonging(Game game, GameList list,Integer position) {
-	
-	id.setGame(game);
-	id.setList(list);
-	this.position = position ;
-}
+	public void setGame(Game game) {
+		id.setGame(game);
+	}
 
+	public Game getGame() {
+		return id.getGame();
+	}
 
-public BelongingPk getId() {
-	return id;
-}
+	public void setList(GameList list) {
+		id.setList(list);
+	}
 
+	public GameList getList() {
+		return id.getList();
+	}
 
-public void setId(BelongingPk id) {
-	this.id = id;
-}
+	public Integer getPosition() {
+		return position;
+	}
 
+	public void setPosition(Integer position) {
+		this.position = position;
+	}
 
-public Integer getPosition() {
-	return position;
-}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
-
-public void setPosition(Integer position) {
-	this.position = position;
-}
-
-
-@Override
-public int hashCode() {
-	return Objects.hash(id);
-}
-
-
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Belonging other = (Belonging) obj;
-	return Objects.equals(id, other.id);
-}
-
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Belonging other = (Belonging) obj;
+		return Objects.equals(id, other.id);
+	}
 }
