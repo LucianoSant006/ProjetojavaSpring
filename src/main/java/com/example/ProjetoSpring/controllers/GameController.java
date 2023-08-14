@@ -14,21 +14,23 @@ import com.example.ProjetoSpring.dto.GameMinDto;
 import com.example.ProjetoSpring.services.GameListService;
 import com.example.ProjetoSpring.services.GameService;
 
-@RestController
-@RequestMapping(value = "/lists")
-public class GameController {
-	
-	@Autowired
-	private GameListService gameListService;
-	
-	
-	
-	@GetMapping
-	public List<GameListDto> findAll() {
-		List<GameListDto>  result = gameListService.findAll();
-		return  result;
-		
-	}
-	
 
+@RestController
+@RequestMapping(value = "/games")
+public class GameController {
+
+	@Autowired
+	private GameService gameService;	
+
+	@GetMapping(value = "/{id}")
+	public GameDto findById(@PathVariable Long id) {
+		GameDto result = gameService.findById(id);
+		return result;
+	}
+
+	@GetMapping
+	public List<GameMinDto> findAll() {
+		List<GameMinDto> result = gameService.findAll();
+		return result;
+	}
 }
