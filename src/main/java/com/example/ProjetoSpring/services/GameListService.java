@@ -7,26 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ProjetoSpring.dto.GameDto;
+import com.example.ProjetoSpring.dto.GameListDto;
 import com.example.ProjetoSpring.dto.GameMinDto;
 import com.example.ProjetoSpring.entities.Game;
+import com.example.ProjetoSpring.entities.GameList;
+import com.example.ProjetoSpring.repositories.GameListRepository;
 import com.example.ProjetoSpring.repositories.GameRepository;
 
 @Service
-public class GameService {
+public class GameListService {
 	
 	@Autowired
-	private GameRepository gameRepository;
+	private GameListRepository gameListRepository;
+	
 	@Transactional(readOnly = true)
-	public GameDto findById(Long id) {
-		Game result = gameRepository.findById(id).get();
-		GameDto dto = new GameDto(result);
-		return dto;
-	}
-	@Transactional(readOnly = true)
-	public List<GameMinDto> findAll(){
-		List<Game> result = gameRepository.findAll();
-		List<GameMinDto> dto = result.stream().map(x -> new GameMinDto(x)).toList();
-		return dto;
+	public List<GameListDto> findAll(){
+		List<GameList> result = gameListRepository.findAll();
+		return result.stream().map(x -> new GameListDto(x)).toList();
+		
 		
 		
 	}
